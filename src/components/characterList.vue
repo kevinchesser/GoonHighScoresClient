@@ -17,7 +17,21 @@ onMounted(async () => {
     <div id="characters" class="center col-md-8">
       <ul>
         <li v-for="character in characters" :key="character.name">
-          {{ character.name }} and {{ character.discordUserId }}
+          <!--
+          <router-link :to="'/character/${character.name}'">
+            {{ character.name }} and {{ character.discordUserId }}
+          </router-link>
+          -->
+          <router-link :to="
+            {
+              name: 'character',
+              params: {
+                name: character.name
+              }
+            }"
+          >
+            {{ character.name }} and {{ character.discordUserId }}
+          </router-link>
         </li>
       </ul>
     </div>
@@ -26,4 +40,10 @@ onMounted(async () => {
 
 </template>
 
-<style scoped></style>
+
+          <router-link :to="
+            {
+              name: 'home',
+            }"
+          >
+          </router-link>
