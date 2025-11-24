@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { getLast24hrLeaderboard } from '@/services/highScoresService';
+import LeaderboardChart from '@/components/leaderboardChart.vue';
 import type { TimeSpanLeaderboard } from '@/types/TimeSpanLeaderboard';
 
 const highScores = ref<TimeSpanLeaderboard>();
@@ -8,15 +9,24 @@ const highScores = ref<TimeSpanLeaderboard>();
 onMounted(async () => {
   highScores.value = await getLast24hrLeaderboard();
 })
+
+const labels = computed(() =>
+  highScores.value?.timeSpanLeaderboardItems.map(item => item.character.name).reverse() || []
+)
+
+const values = computed(() =>
+  highScores.value?.timeSpanLeaderboardItems.map(item => item.timeSpanOverallXp).reverse() || []
+)
 </script>
 
 <template>
 
 <div class="container">
   <div class="row">
-    <div id="recentHighScoreTable" class="center col-md-5">
+    <div class="block">
+    <div id="recentHighScoreTable" class="center">
       <h3>Xp Gained in the Last 24hrs</h3>
-      <table class="table">
+      <table class="table is-fullwidth">
         <thead>
           <tr>
             <th>Pos</th>
@@ -43,8 +53,10 @@ onMounted(async () => {
         </tbody>
         </table>
     </div>
-    <div id="graph" class="col-md-7">
+    </div>
 
+    <div id="graph">
+      <LeaderboardChart :labels="labels" :data="values" />
     </div>
   </div>
 </div>
