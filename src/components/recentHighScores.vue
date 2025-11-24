@@ -27,23 +27,20 @@ onMounted(async () => {
         <tbody>
           <tr v-for="(leaderBoardItem, index) in highScores?.timeSpanLeaderboardItems || []" :key="leaderBoardItem.character?.name ?? index">
             <th>{{ index + 1 }}</th>
-            <td>{{ leaderBoardItem.character?.name || 'Unknown' }}</td>
+            <td>
+            <router-link tag="td" :to="{
+              name: 'character',
+              params: {
+                name: leaderBoardItem.character?.name
+              }
+            }"    
+            >
+              <span>{{ leaderBoardItem.character?.name || 'Unknown' }}</span>
+            </router-link>
+            </td>
             <td>{{ leaderBoardItem.timeSpanOverallXp }}</td>
           </tr>
         </tbody>
-    <!--    <li v-for="character in characters" :key="character.name">-->
-      <!--
-          <router-link :to="
-            {
-              name: 'character',
-              params: {
-                name: character.name
-              }
-            }"
-          >
-            {{ character.name }} and {{ character.discordUserId }}
-          </router-link>
-        -->
         </table>
     </div>
     <div id="graph" class="col-md-7">
