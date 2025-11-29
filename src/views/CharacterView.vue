@@ -42,7 +42,7 @@ const values = computed(() =>
 
 <template>
 	<div class="container">
-		<div class="columns is-vcentered">
+		<div class="columns">
 			<div class="column is-one-third">
 				<h1 class="title">Stats for {{ name }}</h1>
 
@@ -62,14 +62,14 @@ const values = computed(() =>
 							<img :src="getSkillIconPath(skillId)"></img> {{ getSkillName(skillId) }}
 						</td>
 						<td>{{ xpDrops[0]?.level }}</td>
-						<td>{{ xpDrops[0]?.xp.toLocaleString() }}</td>
-						<td>{{ xpDrops[0]?.rank.toLocaleString() }}</td>
+						<td>{{ xpDrops[0]?.xp?.toLocaleString() ?? "N/A" }}</td>
+						<td>{{ xpDrops[0]?.rank?.toLocaleString() ?? "N/A" }}</td>
 					</tr>
 					</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="column is-tow-thirds is-flex is-align-items-center">
+			<div class="column is-tow-thirds">
 				<XpDropHistoryChart :labels="labels" :data="values" />
 			</div>
 		</div>
