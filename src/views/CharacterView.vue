@@ -25,6 +25,8 @@ const getSkillIconPath = (skillId: number) =>
 	return '/src/assets/skill_icon_' +  getSkillName(skillId)?.toLowerCase() + '.gif';
 }
 
+const selectedSkillIndex = ref(0); //Default to overall
+const selectedSkillName = computed(() => getSkillName(selectedSkillIndex.value));
 const dateStringFormattingOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
   month: "numeric",
@@ -32,17 +34,17 @@ const dateStringFormattingOptions: Intl.DateTimeFormatOptions = {
   hour: "numeric"
 };
 const labels = computed(() =>
-  chraracterOverview.value?.xpDropsBySkill[0]?.map(item => new Date(item.timeStamp).toLocaleDateString(undefined, dateStringFormattingOptions)).reverse() || []
+  chraracterOverview.value?.xpDropsBySkill[selectedSkillIndex.value]?.map(item => new Date(item.timeStamp).toLocaleDateString(undefined, dateStringFormattingOptions)).reverse() || []
 )
 
 const values = computed(() =>
-  chraracterOverview.value?.xpDropsBySkill[0]?.map(item => item.xp).reverse() || []
+  chraracterOverview.value?.xpDropsBySkill[selectedSkillIndex.value]?.map(item => item.xp).reverse() || []
 )
 </script>
 
 <template>
 	<div class="container">
-		<div class="columns">
+		<div class="columns is-vcentered">
 			<div class="column is-one-third">
 				<h1 class="title">Stats for {{ name }}</h1>
 
@@ -57,7 +59,7 @@ const values = computed(() =>
 					</tr>
 					</thead>
 					<tbody>
-					<tr v-for="xpDrops, skillId in chraracterOverview?.xpDropsBySkill" :key="skillId">
+					<tr v-for="xpDrops, skillId in chraracterOverview?.xpDropsBySkill" :key="skillId" @click="selectedSkillIndex = skillId">
 						<td>
 							<img :src="getSkillIconPath(skillId)"></img> {{ getSkillName(skillId) }}
 						</td>
@@ -69,8 +71,9 @@ const values = computed(() =>
 					</table>
 				</div>
 			</div>
-			<div class="column is-tow-thirds">
-				<XpDropHistoryChart :labels="labels" :data="values" />
+			<div class="column is-tow-thirds is-align-items-center">
+				<span class="title">{{ selectedSkillName }}</span>&nbsp;&nbsp;<img :src="getSkillIconPath(selectedSkillIndex)"></img>
+				<XpDropHistoryChart :labels="labels" :data="values" :titleText="selectedSkillName ?? ''" />
 			</div>
 		</div>
 	</div>

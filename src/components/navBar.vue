@@ -1,3 +1,9 @@
+<script setup>
+import { ref } from 'vue'
+
+const username = ref('');
+</script>
+
 <template>
   <!--Navbar-->
   <div class="block">
