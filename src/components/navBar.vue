@@ -1,7 +1,13 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const username = ref('');
+
+const router = useRouter()
+const routeToCharacterView = () => {
+	router.replace('/character/' + username.value);
+}
 </script>
 
 <template>
@@ -28,7 +34,9 @@ const username = ref('');
       <div class="navbar-start">
 		<div class="navbar-item">
 			<div class="control">
-				<input class="input" type="text" placeholder="Zezima"></input>
+				<form @submit.stop.prevent="routeToCharacterView">
+					<input class="input" type="text" placeholder="Zezima" v-model="username"></input>
+				</form>
 			</div>
 		</div>
       </div>
