@@ -42,7 +42,7 @@ const values = computed(() =>
 
 <template>
 	<div class="container">
-		<div class="columns">
+		<div class="columns is-vcentered">
 			<div class="column is-one-third">
 				<h1 class="title">Stats for {{ name }}</h1>
 
@@ -69,7 +69,7 @@ const values = computed(() =>
 					</table>
 				</div>
 			</div>
-			<div class="column is-tow-thirds">
+			<div class="column is-tow-thirds is-flex is-align-items-center">
 				<XpDropHistoryChart :labels="labels" :data="values" />
 			</div>
 		</div>
