@@ -48,7 +48,7 @@ const values = computed(() =>
               <span>{{ leaderBoardItem.character?.name || 'Unknown' }}</span>
             </router-link>
             </td>
-            <td>{{ leaderBoardItem.timeSpanOverallXp }}</td>
+            <td>{{ leaderBoardItem.timeSpanOverallXp.toLocaleString() }}</td>
           </tr>
         </tbody>
         </table>

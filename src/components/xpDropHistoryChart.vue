@@ -22,30 +22,18 @@ const chartData = computed(() => ({
   labels: props.labels,
   datasets: [
     {
-      label: 'XP Gained',
+      label: 'XP',
       data: props.data,
       borderWidth: 2,
       tension: 0.3,
       pointRadius: 5,
-	  borderColor: '#4db8ff',  // bright blue line
+	    borderColor: '#4db8ff',  // bright blue line
       pointBackgroundColor: '#4db8ff',
       pointBorderColor: '#fff',
       pointHoverRadius: 7
     }
   ]
 }))
-
-/*
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    y: {
-      beginAtZero: true
-    }
-  }
-}
-*/
 
 const chartOptions = {
   responsive: true,
@@ -66,7 +54,7 @@ const chartOptions = {
       grid: {
         color: '#444',     // Y-axis gridline color
       },
-      beginAtZero: true
+      beginAtZero: false
     }
   },
   plugins: {
@@ -87,7 +75,7 @@ const chartOptions = {
 </script>
 
 <template>
-  <div style="height: 400px;">
+  <div style="height: 600px;">
     <Line :data="chartData" :options="chartOptions" />
   </div>
 </template>
