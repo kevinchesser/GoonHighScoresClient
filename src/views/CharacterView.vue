@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import type { CharacterOverview } from '@/types/CharacterOverview';
 import { getCharacterOverview } from '@/services/highScoresService';
 import { Skill } from '@/enums/Skill';
@@ -12,8 +13,21 @@ const { name } = defineProps<{
 const chraracterOverview = ref<CharacterOverview>();
 
 onMounted(async () => {
-  chraracterOverview.value = await getCharacterOverview(name);
+	loadCharacterOverview();
 })
+
+const route = useRoute();
+watch(
+	() => route.query,
+	() => {
+		loadCharacterOverview();
+	},
+	{ deep: true }
+)
+
+const loadCharacterOverview = async () => {
+  chraracterOverview.value = await getCharacterOverview(name);
+}
 
 const getSkillName = (skillId: number) =>
 {
@@ -61,7 +75,7 @@ const values = computed(() =>
 					</tr>
 					</thead>
 					<tbody>
-					<tr v-for="xpDrops, skillId in chraracterOverview?.xpDropsBySkill" :key="skillId" @click="selectedSkillIndex = skillId">
+					<tr class="skillXpRow" v-for="xpDrops, skillId in chraracterOverview?.xpDropsBySkill" :key="skillId" @click="selectedSkillIndex = skillId">
 						<td>
 							<img :src="getSkillIconPath(skillId)"></img> {{ getSkillName(skillId) }}
 						</td>
@@ -82,4 +96,9 @@ const values = computed(() =>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+	.skillXpRow:hover {
+	background-color: var(--bulma-table-row-active-background-color);
+	color: var(--bulma-table-row-active-color);
+	}
+</style>
