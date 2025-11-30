@@ -1,7 +1,8 @@
 import axios from 'axios'
+const apiUrl = import.meta.env.VITE_HIGHSCORES_API_URL;
 
 const highScoresApi = axios.create({
-	baseURL: 'https://localhost:7071/HighScore',
+	baseURL: apiUrl + '/HighScore',
 	timeout: 5000
 });
 

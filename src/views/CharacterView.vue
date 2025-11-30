@@ -22,7 +22,7 @@ const getSkillName = (skillId: number) =>
 
 const getSkillIconPath = (skillId: number) =>
 {
-	return '/src/assets/skill_icon_' +  getSkillName(skillId)?.toLowerCase() + '.gif';
+	return new URL('/src/assets/skill_icon_' +  getSkillName(skillId)?.toLowerCase() + '.gif', import.meta.url).href;
 }
 
 const selectedSkillIndex = ref(0); //Default to overall

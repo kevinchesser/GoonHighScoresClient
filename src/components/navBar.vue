@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import iconUrl from '@/assets/icon200.png'
 
 const username = ref('');
 
@@ -20,7 +21,7 @@ const routeToCharacterView = () => {
 	  {
 		name: 'home'
 	  }
-	  "><img src="../assets/icon200.png"></img>
+	  "><img :src="iconUrl"></img>
 	  </router-link>
     
 	  <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
