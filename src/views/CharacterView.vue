@@ -20,9 +20,11 @@ const getSkillName = (skillId: number) =>
 	return Skill[skillId];
 }
 
+const skillIcons = import.meta.glob('@/assets/skill_icon_*.gif', { eager: true, query: 'url', import: 'default' }) as Record<string, string>;
 const getSkillIconPath = (skillId: number) =>
 {
-	return new URL('/src/assets/skill_icon_' +  getSkillName(skillId)?.toLowerCase() + '.gif', import.meta.url).href;
+	const skillName = getSkillName(skillId)?.toLowerCase();
+    return skillIcons[`/src/assets/skill_icon_${skillName}.gif`];
 }
 
 const selectedSkillIndex = ref(0); //Default to overall
